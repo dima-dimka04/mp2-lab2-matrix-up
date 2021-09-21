@@ -28,8 +28,8 @@ public:
 
     TVector(const TVector &v);                // конструктор копирования
     ~TVector();
-    int getSize()      { return size;       } // размер вектора
-    int getStartIndex(){ return startIndex; } // индекс первого элемента
+    size_t getSize()      { return size;       } // размер вектора
+    size_t getStartIndex(){ return startIndex; } // индекс первого элемента
     T& getElement(int i);
     T& getElement(size_t i);
     void setElement(int index, T element);
