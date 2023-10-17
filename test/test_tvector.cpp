@@ -8,7 +8,7 @@ TEST(TVector, can_create_vector_with_positive_length)
 
 TEST(TVector, cant_create_too_large_vector)
 {
-    // максимальный допустимый размер вектора = TVector<int>::max_size
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ = TVector<int>::max_size
     ASSERT_ANY_THROW(TVector<int> v(TVector<int>::max_size + static_cast<size_t>(1)));
 }
 
@@ -31,12 +31,20 @@ TEST(TVector, can_create_copied_vector)
 
 TEST(TVector, copied_vector_is_equal_to_source_one)
 {
-    ADD_FAILURE();
+    TVector<int> v(10);
+    TVector<int> v1(v);
+
+    EXPECT_EQ(v, v1);
 }
 
 TEST(TVector, copied_vector_has_its_own_memory)
 {
-    ADD_FAILURE();
+    TVector<int> v(3);
+    TVector<int> v1(v);
+    v[2] = 1;
+    v1[2] = 0;
+    
+    EXPECT_NE(v, v1);
 }
 
 TEST(TVector, can_get_size)
@@ -63,12 +71,20 @@ TEST(TVector, can_set_and_get_element)
 
 TEST(TVector, throws_when_set_element_with_negative_index)
 {
-    ADD_FAILURE();
+    TVector<int>v(4, 2);
+    int index = -1;
+    int element = 1;
+
+    ASSERT_ANY_THROW(v.setElement(index, element));
 }
 
 TEST(TVector, throws_when_set_element_with_too_large_index)
 {
-    ADD_FAILURE();
+    TVector<int>v(4, 2);
+    int index = TVector<int>::max_size + static_cast<size_t>(1);
+    int element = 1;
+
+    ASSERT_ANY_THROW(v.setElement(index, element));
 }
 
 TEST(TVector, can_assign_vector_to_itself)
