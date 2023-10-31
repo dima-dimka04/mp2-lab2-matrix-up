@@ -157,8 +157,17 @@ bool TVector<T>::operator!=(const TVector &v) const
 template <class T> // присваивание
 TVector<T>& TVector<T>::operator=(const TVector &v)
 {
-    size = v.size;
+    if (size != v.size)
+    {
+        delete[] pVector;
+        size = v.size;
+        pVector = new T[size];
+    }
     startIndex = v.startIndex;
+    for (int i = 0; i < size; i++)
+    {
+        pVector[i] = v.pVector[i];
+    }
     return *this;
 } /*-------------------------------------------------------------------------*/
 
@@ -197,11 +206,12 @@ TVector<T> TVector<T>::operator+(const TVector<T> &v)
 {
     if (size != v.size) { throw "not equal size"; }
     else {
+        TVector<T> newvec(size);
         for (int i = 0; i < size; i++)
         {
-            pVector[i] += v.pVector[i];
+            newvec.pVector[i] = pVector[i] + v.pVector[i];
         }
-        return *this;
+        return newvec;
     }
 } /*-------------------------------------------------------------------------*/
 
@@ -210,11 +220,12 @@ TVector<T> TVector<T>::operator-(const TVector<T> &v)
 {
     if(size != v.size) { throw "not equal size"; }
     else {
+        TVector<T>newvec(size);
         for (int i = 0; i < size; i++)
         {
-            pVector[i] -= v.pVector[i];
+            newvec.pVector[i] = pVector[i] - v.pVector[i];
         }
-        return *this;
+        return newvec;
     }
 } /*-------------------------------------------------------------------------*/
 

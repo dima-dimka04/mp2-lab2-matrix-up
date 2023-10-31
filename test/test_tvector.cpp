@@ -262,15 +262,15 @@ TEST(TVector, cant_subtract_vectors_with_not_equal_size)
 
 TEST(TVector, can_multiply_vectors_with_equal_size)
 {
-    TVector<int> a(3); TVector<int> b(3); TVector<int> c(3);
+    TVector<int> a(3); TVector<int> b(3); 
     for (int i = 0; i < 3; i++)
     {
-        a[i] = 6; b[i] = 2; c[i] = 3;
+        a[i] = 2; b[i] = 3;
     }
-    TVector<int>res(3);
-    res = c * b;
+    int res = 0;
+    res = a * b;
 
-    EXPECT_EQ(a, res);
+    EXPECT_EQ(18, res);
 }
 
 TEST(TVector, cant_multiply_vectors_with_not_equal_size)
