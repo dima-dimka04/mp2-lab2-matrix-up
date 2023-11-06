@@ -220,14 +220,13 @@ TEST(TVector, can_multiply_scalar_by_vector)
 
 TEST(TVector, can_add_vectors_with_equal_size)
 {
-    TVector<int> a(3); TVector<int> b(3); TVector<int> c(3);
+    TVector<int> a(3, 0); TVector<int> b(3, 0); TVector<int> c(3, 0);
     for (int i = 0; i < 3; i++)
     {
         a[i] = 1; b[i] = 2; c[i] = 3;
     }
-    TVector<int>res(3);
+    TVector<int> res(3, 0);
     res = a + b;
-
     EXPECT_EQ(c, res);
 }
 
