@@ -358,7 +358,7 @@ bool TMatrix<T>::operator==(const TMatrix<T>& mt) const
     if (this->size != mt.size || this->startIndex != mt.startIndex) { return false; }
     else {
         for (int i = 0; i < mt.size; i++) {
-            if (mt.pVector[i] != pVector[i]) { return false; }
+            if (mt.pVector[i] != this->pVector[i]) { return false; }
         }
         return true;
     }
@@ -370,7 +370,7 @@ bool TMatrix<T>::operator!=(const TMatrix<T>& mt) const
     if (this->size != mt.size || this->startIndex != mt.startIndex) { return true; }
     else {
         for (int i = 0; i < mt.size; i++) {
-            if (mt.pVector[i] != pVector[i]) { return true; }
+            if (mt.pVector[i] != this->pVector[i]) { return true; }
         }
         return false;
     }
@@ -390,7 +390,7 @@ TMatrix<T>& TMatrix<T>::operator=(const TMatrix<T>& mt)
         this->startIndex = mt.startIndex;
         for (int i = 0; i < this->size; i++)
         {
-            pVector[i] = mt.pVector[i];
+            this->pVector[i] = mt.pVector[i];
         }
     }
     return *this;
