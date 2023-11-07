@@ -9,7 +9,8 @@ TEST(TMatrix, can_create_matrix_with_positive_length)
 
 TEST(TMatrix, cant_create_too_large_matrix)
 {
-    ASSERT_ANY_THROW(TMatrix<int>m(65536));
+    const int s = 65536;
+    ASSERT_ANY_THROW(TMatrix<int>m(s));
 }
 
 TEST(TMatrix, throws_when_create_matrix_with_negative_length)
@@ -19,9 +20,9 @@ TEST(TMatrix, throws_when_create_matrix_with_negative_length)
 
 TEST(TMatrix, can_create_copied_matrix)
 {
-    TMatrix<int> m(5);
-    TMatrix<int> m1(m);
-    ASSERT_NO_THROW(m1);
+    TMatrix<int> m(2);
+
+    ASSERT_NO_THROW(TMatrix<int>m2(m));
 }
 
 TEST(TMatrix, copied_matrix_is_equal_to_source_one)
@@ -86,7 +87,9 @@ TEST(TMatrix, can_assign_matrix_to_itself)
 TEST(TMatrix, can_assign_matrices_of_equal_size)
 {
     TMatrix<int> m(2);
+    m[0][0] = 0; m[0][1] = 2; m[1][1] = 3;
     TMatrix<int> mt(2);
+    mt[0][0] = 1; mt[0][1] = 1; mt[1][1] = 1;
 
     ASSERT_NO_THROW(m = mt);
 }
@@ -143,11 +146,13 @@ TEST(TMatrix, can_add_matrices_with_equal_size)
     m[0][0] = 1; m[0][1] = 1; m[1][1] = 1;
     TMatrix<int> mt(2);
     mt[0][0] = 1; mt[0][1] = 1; mt[1][1] = 1;
+    
+    m = m + mt;
 
     TMatrix<int> res(2);
-    m[0][0] = 2; m[0][1] = 2; m[1][1] = 2;
+    res[0][0] = 2; res[0][1] = 2; res[1][1] = 2;
 
-    EXPECT_EQ(res, m + mt);
+    EXPECT_EQ(res, m);
 }
 
 TEST(TMatrix, cant_add_matrices_with_not_equal_size)
