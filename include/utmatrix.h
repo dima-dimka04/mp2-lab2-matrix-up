@@ -355,7 +355,7 @@ TMatrix<T>::TMatrix(const TVector<TVector<T> >& mt) :
 template <class T> // сравнение
 bool TMatrix<T>::operator==(const TMatrix<T>& mt) const
 {
-    if (size != mt.size || startIndex != mt.startIndex) { return false; }
+    if (this->size != mt.size || this->startIndex != mt.startIndex) { return false; }
     else {
         for (int i = 0; i < mt.size; i++) {
             if (mt.pVector[i] != pVector[i]) { return false; }
@@ -367,7 +367,7 @@ bool TMatrix<T>::operator==(const TMatrix<T>& mt) const
 template <class T> // сравнение
 bool TMatrix<T>::operator!=(const TMatrix<T>& mt) const
 {
-    if (size != mt.size || startIndex != mt.startIndex) { return true; }
+    if (this->size != mt.size || this->startIndex != mt.startIndex) { return true; }
     else {
         for (int i = 0; i < mt.size; i++) {
             if (mt.pVector[i] != pVector[i]) { return true; }
@@ -381,14 +381,14 @@ TMatrix<T>& TMatrix<T>::operator=(const TMatrix<T>& mt)
 {
     if (this != &mt)
     {
-        if (size != mt.size)
+        if (this->size != mt.size)
         {
             this->size = mt.size;
-            delete[] pVector;
+            delete[] this->pVector;
             this->pVector = new TVector<T>[this->size];
         }
         this->startIndex = mt.startIndex;
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < this->size; i++)
         {
             pVector[i] = mt.pVector[i];
         }
