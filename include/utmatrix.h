@@ -71,10 +71,9 @@ public:
 template <class T>//конструктор инициализации
 TVector<T>::TVector(int _size, int startInd) : size(_size), startIndex(startInd)
 {
-    if (_size < 0 || _size >= max_size || startInd < 0 || startInd >= size) { throw "wrong size or startindex"; }
-    //else if (startIndex < 0 || startIndex>=size) { throw "wrong startindex"; }
+    if (size < 0 || size-startInd >= max_size || startInd < 0 /*|| startIndex >= max_size*/) { throw "wrong size or startindex"; }
     else {
-        size = _size;
+        size = size;
         startIndex = startInd;
         pVector = new T[size - startIndex];
         for (int i = 0; i < size - startIndex; i++)
@@ -87,15 +86,15 @@ TVector<T>::TVector(int _size, int startInd) : size(_size), startIndex(startInd)
 template <class T>//конструктор инициализации
 TVector<T>::TVector(size_t _size, size_t startInd) : size(_size), startIndex(startInd)
 {
-    if (_size < 0 || _size >= max_size || startInd < 0 || startInd >= size) { throw "wrong size or startindex"; }
+    if (size < 0 || size-startInd >= max_size || startInd < 0 /*|| startIndex >= max_size*/) { throw "wrong size or startindex"; }
     //else if (startIndex < 0 || startIndex>=size) { throw "wrong startindex"; }
     else {
-        size = _size;
+        size = size;
         startIndex = startInd;
         pVector = new T[size - startIndex];
         for (size_t i = 0; i < size - startIndex; i++)
         {
-            pVector[i] = (T)0;
+            pVector[i] = T();
         }
     }
 } /*-------------------------------------------------------------------------*/
@@ -266,20 +265,39 @@ T TVector<T>::operator*(const TVector<T>& v)
 template <class T>
 T& TVector<T>::getElement(int index)
 {
-    if (index < 0 || index + startIndex >= size) { throw "wrong index"; }
+    if (index < 0 || index - startIndex >= size - startIndex) { throw "wrong index"; }
     else
     {
-        return pVector[index];
+        return pVector[index-startIndex];
     }
 }
 
 template <class T>
-void TVector<T>::setElement(int index, T element)
-{
-    if (index < 0 || index + startIndex >= size) { throw "wrong index"; }
+T& TVector<T>::getElement(size_t index) {
+    if (index < 0 || index - startIndex >= size - startIndex) { throw "wrong index"; }
     else
     {
-        pVector[index] = element;
+        return pVector[index-startIndex];
+    }
+}
+
+
+template <class T>
+void TVector<T>::setElement(int index, T element)
+{
+    if (index < 0 || index-startIndex>= size-startIndex) { throw "wrong index"; }
+    else
+    {
+        pVector[index-startIndex] = element;
+    }
+}
+
+template <class T>
+void TVector<T>::setElement(size_t index, T element) {
+    if (index < 0 || index - startIndex >= size - startIndex) { throw "wrong index"; }
+    else
+    {
+        pVector[index-startIndex] = element;
     }
 }
 
